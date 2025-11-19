@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Services — CashFlow</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header container">
+    <div class="brand">
+      <img src="images/Logo.png" alt="CashFlow Logo">
+      <div>
+        <h1>CashFlow</h1>
+        <div style="font-size:13px;color:var(--muted)">Services</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="contact.html">Contact</a>
+      <div class="cta">
+        <a class="btn small" href="tel:+917385131637">Call Now</a>
+        <a class="btn small" href="mailto:cashflow7385@gmail.com">Email</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container" style="padding-top:32px">
+    <h2>Services</h2>
+    <p class="lead">We provide a range of fast and transparent financial services to convert your credit card limit into cash or help with bill payments.</p>
+
+    <div class="grid" style="margin-top:16px">
+      <div class="card">
+        <h4>Credit Card Swipe Service</h4>
+        <p class="small">Swipe your credit card and get instant cash — 2.5% charge only. Secure and compliant.</p>
+      </div>
+
+      <div class="card">
+        <h4>Loan for Credit Card Bill Payment</h4>
+        <p class="small">Short-term loans to help clear your bill when needed.</p>
+      </div>
+
+      <div class="card">
+        <h4>Instant Cash Available</h4>
+        <p class="small">Money disbursed in minutes — quick service for urgent needs.</p>
+      </div>
+
+      <div class="card">
+        <h4>No Hidden Charges</h4>
+        <p class="small">Transparent pricing — what you see is what you pay.</p>
+      </div>
+
+      <div class="card">
+        <h4>Account / UPI Transfer</h4>
+        <p class="small">Direct bank transfer or UPI transfer available (GPay, PhonePe, Paytm).</p>
+      </div>
+
+      <div class="card">
+        <h4>Debit / Credit Card Easy EMI</h4>
+        <p class="small">Convert large payments into easy monthly EMIs where applicable.</p>
+      </div>
+    </div>
+
+    <section style="margin-top:26px">
+      <h3>Why choose CashFlow?</h3>
+      <div class="grid" style="margin-top:12px">
+        <div class="card">
+          <h4>Lowest Charges in Town</h4>
+          <p class="small">2.5% vs 3% charged by many platforms — you save instantly.</p>
+        </div>
+        <div class="card">
+          <h4>Trusted & Secure</h4>
+          <p class="small">Offline store in City Centre Mall & easy verification process.</p>
+        </div>
+        <div class="card">
+          <h4>Fast Process</h4>
+          <p class="small">Cash in minutes — minimal paperwork.</p>
+        </div>
+        <div class="card">
+          <h4>Multiple Payout Options</h4>
+          <p class="small">Bank transfer, UPI, or cash pickup.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer container">
+    <div>
+      <strong>CashFlow</strong>
+      <div class="small">Chhatrapati Shivaji Maharaj Rd, City Centre Mall, Shrirampur</div>
+    </div>
+
+    <div class="contact-buttons">
+      <a class="btn small" href="tel:+917385131637">Call</a>
+      <a class="btn small" href="mailto:cashflow7385@gmail.com">Email</a>
+      <a class="btn small" href="index.html">Home</a>
+    </div>
+  </footer>
+
+<script>
+/* services.html JS - ripple effect for .btn */
+document.querySelectorAll('.btn').forEach(btn=>{
+  btn.addEventListener('click', function(e){
+    const circle = document.createElement('span');
+    circle.classList.add('ripple');
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    circle.style.width = circle.style.height = size + 'px';
+    circle.style.left = (e.clientX - rect.left - size/2) + 'px';
+    circle.style.top = (e.clientY - rect.top - size/2) + 'px';
+    this.appendChild(circle);
+    setTimeout(()=> circle.remove(), 600);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Calculator — CashFlow</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header container">
+    <div class="brand">
+      <img src="images/Logo.png" alt="CashFlow Logo">
+      <div><h1>CashFlow</h1><div style="font-size:13px;color:var(--muted)">Calculator</div></div>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container" style="padding-top:28px">
+    <h2>Smart Charge Comparison Calculator</h2>
+    <p class="lead">See exactly how much you save with CashFlow's 2.5% fee versus a typical 3% fee.</p>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="calc">
+        <input id="amount" type="number" placeholder="Enter amount (₹)" min="1" />
+        <button class="btn" id="calculateBtn">Calculate</button>
+        <div class="result" id="finalCash">
+          <small>Final Cash</small>
+          <strong id="finalCashAmount">—</strong>
+        </div>
+        <div class="result" style="min-width:140px">
+          <small>Your Fee (2.5%)</small>
+          <strong id="cfFee">—</strong>
+        </div>
+        <div class="result" style="min-width:140px">
+          <small>Other Fee (3%)</small>
+          <strong id="otherFee">—</strong>
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <small class="small">Savings with CashFlow:</small>
+        <div style="font-size:20px; margin-top:6px" id="savingsDisplay">—</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <h3>How it works</h3>
+      <ol class="small">
+        <li>Enter the amount you want to convert from credit card to cash.</li>
+        <li>Click Calculate to see your fee (2.5%), competitor fee (3%), savings, and final cash amount.</li>
+        <li>Click WhatsApp or Call to start the process instantly.</li>
+      </ol>
+    </div>
+  </main>
+
+  <footer class="footer container">
+    <div>
+      <strong>CashFlow</strong>
+      <div class="small">Chhatrapati Shivaji Maharaj Rd, City Centre Mall, Shrirampur</div>
+    </div>
+    <div class="contact-buttons">
+      <a class="btn small" href="tel:+917385131637">Call</a>
+      <a class="btn small" href="mailto:cashflow7385@gmail.com">Email</a>
+      <a class="btn small" href="index.html">Home</a>
+    </div>
+  </footer>
+
+<script>
+/* calculator.html JS - calculation + animations + ripple */
+document.querySelectorAll('.btn').forEach(btn=>{
+  btn.addEventListener('click', function(e){
+    const circle = document.createElement('span');
+    circle.classList.add('ripple');
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    circle.style.width = circle.style.height = size + 'px';
+    circle.style.left = (e.clientX - rect.left - size/2) + 'px';
+    circle.style.top = (e.clientY - rect.top - size/2) + 'px';
+    this.appendChild(circle);
+    setTimeout(()=> circle.remove(), 600);
+  });
+});
+
+function animateNumber(element, start, end, duration=600){
+  const range = end - start;
+  const stepTime = Math.abs(Math.floor(duration / (range || 1)));
+  let current = start;
+  const increment = end > start ? 1 : -1;
+  const timer = setInterval(() => {
+    current += increment;
+    element.textContent = current.toLocaleString(undefined, {maximumFractionDigits:2});
+    if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+      clearInterval(timer);
+      element.textContent = end.toLocaleString(undefined, {maximumFractionDigits:2});
+    }
+  }, stepTime);
+}
+
+document.getElementById('calculateBtn').addEventListener('click', function(){
+  const amtInput = document.getElementById('amount');
+  const v = parseFloat(amtInput.value);
+  if (!v || v<=0) {
+    alert('Please enter a valid amount.');
+    return;
+  }
+  const cfCharge = +(v * 0.025);
+  const otherCharge = +(v * 0.03);
+  const savings = +(otherCharge - cfCharge);
+  const finalCash = +(v - cfCharge);
+
+  // show with smooth animation
+  const cfFeeEl = document.getElementById('cfFee');
+  const otherFeeEl = document.getElementById('otherFee');
+  const finalCashEl = document.getElementById('finalCashAmount');
+  const savingsEl = document.getElementById('savingsDisplay');
+
+  cfFeeEl.textContent = cfCharge.toFixed(2);
+  otherFeeEl.textContent = otherCharge.toFixed(2);
+  finalCashEl.textContent = finalCash.toFixed(2);
+  savingsEl.textContent = '₹ ' + savings.toFixed(2) + ' savings vs 3%';
+
+  // small glow effect
+  [cfFeeEl,otherFeeEl,finalCashEl,savingsEl].forEach(el=>{
+    el.style.transition='transform .25s ease, color .25s ease';
+    el.style.transform='translateY(-6px)';
+    setTimeout(()=> el.style.transform='translateY(0)', 260);
+  });
+
+  // optional: trigger WhatsApp prompt
+  setTimeout(()=> {
+    // nothing — user can click Chat
+  }, 400);
+});
+
+/* allow pressing Enter key */
+document.getElementById('amount').addEventListener('keydown', (e)=>{
+  if (e.key === 'Enter') document.getElementById('calculateBtn').click();
+});
+</script>
+</body>
+</html>
