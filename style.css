@@ -212,18 +212,34 @@ body{
   transition: transform .18s ease;
 }
 
-/* reels */
-.reels{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:12px;
+/* =========================
+   Instagram Reels Section
+   ========================= */
+
+/* Reels container */
+.reels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  justify-items: center;
 }
 
-.reel-embed iframe{
-  width:100%;
-  height:300px;       /* FIX smaller default */
-  border-radius:12px;
+/* Reel iframe */
+.reel-embed iframe {
+  width: 100%;
+  max-width: 320px;
+  height: 560px;
+  border-radius: 12px;
+  border: none;
 }
+
+/* Mobile & small devices */
+@media (max-width: 768px) {
+  .reels {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 /* footer */
 .footer{
@@ -268,3 +284,4 @@ body{
   .nav a { font-size: 15px; padding: 8px 12px; }
   .cta a { font-size: 14px; padding: 6px 18px; }
 }
+
